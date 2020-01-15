@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FlightRepository")
@@ -17,7 +18,7 @@ class Flight
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=25)
      */
     private $number;
 
@@ -28,6 +29,13 @@ class Flight
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="Entrez un prix entre 100 et 300")
+     * @Assert\Range(
+     * min=100,
+     * max=300,
+     * minMessage = "minimum 100",
+     * maxMessage = "maximum 300"
+     * )
      */
     private $price;
 
@@ -38,6 +46,13 @@ class Flight
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank(message="50 sièges max")
+     * @Assert\Range(
+     * min=1,
+     * max=50,
+     * minMessage = "minimum 1",
+     * maxMessage = "maximum 50"
+     * )
      */
     private $seat;
 
@@ -50,6 +65,7 @@ class Flight
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\City")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotEqualTo(propertyPath="arrival", message="Le départ et l'arrivée doivent être différent")
      */
     private $departure;
 
@@ -58,12 +74,12 @@ class Flight
         return $this->id;
     }
 
-    public function getNumber(): ?int
+    public function getNumber(): ?string
     {
         return $this->number;
     }
 
-    public function setNumber(?int $number): self
+    public function setNumber(?string $number): self
     {
         $this->number = $number;
 

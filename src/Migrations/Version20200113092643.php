@@ -23,7 +23,7 @@ final class Version20200113092643 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE city (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, no VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE flight (id INT AUTO_INCREMENT NOT NULL, arrival_id INT NOT NULL, departure_id INT NOT NULL, number INT DEFAULT NULL, schedule TIME NOT NULL, price INT NOT NULL, reduction TINYINT(1) DEFAULT NULL, seat INT NOT NULL, INDEX IDX_C257E60E62789708 (arrival_id), INDEX IDX_C257E60E7704ED06 (departure_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE flight (id INT AUTO_INCREMENT NOT NULL, arrival_id INT NOT NULL, departure_id INT NOT NULL, number VARCHAR(25) DEFAULT NULL, schedule TIME NOT NULL, price INT NOT NULL, reduction TINYINT(1) DEFAULT NULL, seat INT NOT NULL, INDEX IDX_C257E60E62789708 (arrival_id), INDEX IDX_C257E60E7704ED06 (departure_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE flight ADD CONSTRAINT FK_C257E60E62789708 FOREIGN KEY (arrival_id) REFERENCES city (id)');
         $this->addSql('ALTER TABLE flight ADD CONSTRAINT FK_C257E60E7704ED06 FOREIGN KEY (departure_id) REFERENCES city (id)');
     }

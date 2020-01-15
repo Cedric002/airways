@@ -1,0 +1,14 @@
+header {
+    height: 300px;
+    background-image: url(../img/airport.jfif);
+    background-size: cover;
+    background-position: 0 center;
+}
+
+.complet {
+    color: orangered;
+}
+
+.promo {
+    color: green;
+}

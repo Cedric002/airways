@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{parent()}} - Accueil Admin {% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="row">
+        <h2 class="col-12 my-5"> ADMINISTRATION DES VOLS </h2>
+    </div>
+
+    <div class="row">
+        <div class="col-12 my-5">
+            <a href="{{ path('admin_new') }}" class="add btn btn-success"> Ajouter un vol </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped listevols">
+                <tr>
+                    <th>Numéro de vol</th>
+                    <th>Départ</th>
+                    <th>Arrivée</th>
+                    <th>Horaire</th>
+                    <th>Places</th>
+                    <th>Prix</th>
+                    <th><span class="fa fa-info-circle"></span></th>
+                    <th><span class="fa fa-exclamation-circle"></span></th>
+                </tr>
+                {% for f in flights %}
+                <tr>
+                    <td>{{ f.number }}</td>
+                    <td>{{ f.departure.name }}</td>
+                    <td>{{ f.arrival.name }}</td>
+                    <td>{{ f.schedule | date('H:i') }}</td>
+                    <td>{{ f.seat }}</td>
+                    <td>{{ f.price }}</td>
+                    <td> <a href=" {{ path('admin_edit', {'id':f.id}) }}" class="btn btn-info">
+                            Editer
+                        </a>
+                    </td>
+                    <td> <a href=" {{ path('admin_edit', {'id':f.id}) }}" class="btn btn-danger">
+                            Supprimer
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+    $('.btn-danger').on('click', function() {
+        return confirm("Supprimer ce vol ?");
+    });
+</script>
+
+{% endblock %}
